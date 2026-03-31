@@ -26,7 +26,7 @@ El sistema está diseñado con una base de datos relacional en PostgreSQL, estru
 
 ### 📊 Diagrama ERD
 
-![ERD](https://chatgpt.com/c/docs/erd.png)
+![ERD](docs/erd.png)
 
 ---
 
