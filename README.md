@@ -1,3 +1,4 @@
+
 # 🧠 Smart Shopping System
 
 ## 📌 Descripción
@@ -16,6 +17,87 @@ Construir un sistema inteligente que ayude a los usuarios a:
 * Tener en cuenta las preferencias familiares
 * Analizar hábitos de compra a lo largo del tiempo
 * Tomar decisiones basadas en datos
+
+---
+
+## 🗄️ Modelo de Base de Datos
+
+El sistema está diseñado con una base de datos relacional en PostgreSQL, estructurada para soportar listas compartidas, comparación de precios y análisis histórico.
+
+### 📊 Diagrama ERD
+
+![ERD](https://chatgpt.com/c/docs/erd.png)
+
+---
+
+### 👥 Usuarios y Familias
+
+* **users** → información de usuarios
+* **families** → grupos familiares
+* **family_members** → relación muchos a muchos entre usuarios y familias
+
+---
+
+### 🛒 Listas de Compra
+
+* **shopping_lists** → lista activa por familia
+* **shopping_list_items** → productos dentro de la lista
+  * Incluye cantidad, unidad y estado de compra
+  * Relación directa con **product_variants** (no productos genéricos)
+
+---
+
+### 🏪 Productos y Variantes
+
+* **products** → producto base (ej: arroz)
+* **brands** → marca (ej: Diana)
+* **product_variants** → combinación producto + marca
+  * Incluye imagen del producto (`image_url`)
+
+---
+
+### 💰 Precios
+
+* **prices** → precio de un producto en un supermercado
+  * Relación con:
+    * product_variants
+    * supermarkets
+  * Incluye fecha de última actualización (`updated_at`)
+
+---
+
+### 🏬 Supermercados
+
+* **supermarkets** → tiendas donde se comparan precios
+
+---
+
+### 📊 Historial de Compras
+
+* **purchases** → compra realizada por una familia
+* **purchase_items** → detalle de productos comprados
+
+Esto permite:
+
+* Analizar hábitos de compra
+* Calcular gasto total
+* Generar estadísticas
+
+---
+
+## 🔄 Flujo del Sistema
+
+1. Usuario crea o se une a una familia
+2. Se crea una lista de compras activa
+3. Se agregan productos (variantes específicas)
+4. El sistema permite comparar precios entre supermercados
+5. Usuario marca productos como comprados
+6. Usuario finaliza la compra
+7. El sistema:
+   * Guarda la compra en el historial
+   * Registra los productos comprados
+   * Cierra la lista actual
+   * Genera una nueva lista
 
 ---
 
@@ -45,10 +127,7 @@ Construir un sistema inteligente que ayude a los usuarios a:
 
 * Creación manual de supermercados (fase inicial)
 * Un producto puede tener múltiples marcas
-* Un mismo producto puede tener diferentes precios según:
-  * Supermercado
-  * Marca
-* Comparación de opciones para tomar mejores decisiones
+* Comparación de precios entre supermercados
 
 ---
 
@@ -57,8 +136,6 @@ Construir un sistema inteligente que ayude a los usuarios a:
 * Recomendaciones basadas en:
   * Precio
   * Preferencias del usuario
-* Objetivo futuro:
-  * Balance entre costo y preferencia
 
 ---
 
@@ -82,8 +159,7 @@ Construir un sistema inteligente que ayude a los usuarios a:
 
 ### Base de Datos
 
-* SQLite (desarrollo inicial)
-* PostgreSQL (producción)
+* PostgreSQL
 
 ### Validación de Datos
 
@@ -122,7 +198,7 @@ El proyecto sigue una arquitectura en capas:
 
 * Integración automática de supermercados y precios
 * Sistema avanzado de recomendaciones
-* Autenticación con Google
+* Historial de precios
 * Notificaciones (ofertas, cambios de precio, sugerencias)
 * Interfaz adaptable a dispositivos móviles
 
@@ -130,10 +206,10 @@ El proyecto sigue una arquitectura en capas:
 
 ## 📈 Estado del Proyecto
 
-🚧 En fase de planificación y desarrollo inicial
+🚧 En fase de desarrollo inicial con base de datos completamente diseñada
 
 ---
 
 ## 💡 Motivación
 
-Este proyecto busca resolver un problema real del día a día combinando buenas prácticas de desarrollo de softwa
+Este proyecto busca resolver un problema real del día a día combinando buenas prácticas de desarrollo de software con análisis de datos y toma de decisiones inteligentes.
